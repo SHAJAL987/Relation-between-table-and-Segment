@@ -1,0 +1,73 @@
+-----------------------------------------------------------------------------------------
+			T A B L E    A N D    S E G M E N T   R E L T I O N
+------------------------------------------------------------------------------------------
+	A table and segment has good reation. that is very deep concept.
+	A database has logical and physial structure, The LOGICAL part contains -
+	
+				----------------
+				D A T A B A S E
+				----------------
+				       |
+			     ----------------------
+			     T A B L E S P A C E S
+			     ----------------------
+				       |
+				  -------------
+			          S E G M E N T
+				  -------------
+				       |
+				   -----------
+				   E X T E N T
+				   -----------
+				       |
+				-----------------
+			        D A T A  B L O K
+				-----------------
+-------------------------------------------------------------------------------------------
+	When we create any Table and Insert any data the segment will create 
+        autometically on the other hands without insertion any data the segment 
+	will not create. Ex-
+
+		SQL> SELECT TABLE_NAME
+                     FROM   USER_TABLES;
+
+		SQL> SELECT COUNT(TABLE_NAME)
+		     FROM USER_TABLES;
+
+		SQL> CREATE TABLE EMP
+		     (
+			ID     NUMBER,
+			NAME   VARCHAR2(10),
+			SALARY NUMBER
+		     );
+		     Table created.
+
+		SQL> SELECT 'ALTER TABLE '||TABLE_NAME||' ALLOCATE EXTENT;'
+		     FROM    USER_TABLES
+		     WHERE   SEGMENT_CREATED = 'NO';
+		    
+                     ALTER TABLE EMP ALLOCATE EXTENT
+
+
+		SQL> SHOW PARAMETER DEFERRED_SAGMENT_CREATION;
+		SQL> SELECT SEGMENT_NAME
+                     FROM   USER_SEGMENTS;
+
+		SQL> INSERT INTO EMP
+		     VALUES(1,'KAMAL',12000);
+		     1 row created.
+
+		SQL> SELECT 'ALTER TABLE '||TABLE_NAME||' ALLOCATE EXTENT;'
+		     FROM    USER_TABLES
+		     WHERE   SEGMENT_CREATED = 'NO';
+		     no row selected
+
+		SQL> DESC USER_SEGMENTS;
+
+
+
+
+
+
+
+
